@@ -3,7 +3,7 @@
 # Library
 import praw
 
-# Fonction affichage hiérarchie dict
+# Fonction affichage hiï¿½rarchie dict
 def showDictStruct(d):
     def recursivePrint(d, i):
         for k in d:
@@ -20,17 +20,17 @@ reddit = praw.Reddit(
     client_secret='qz-U-NXJ5Nj0vamQnvpzW9TTW4ZKdQ', 
     user_agent='Td3'
     )
-# Requête
+# Requï¿½te
 limit = 100
 hot_posts = reddit.subreddit('all').hot(limit=limit)#.top("all", limit=limit)#
 
-# Récupération du texte
+# Rï¿½cupï¿½ration du texte
 docs = []
 docs_bruts = []
 afficher_cles = False
 for i, post in enumerate(hot_posts):
     if i%10==0: print("Reddit:", i, "/", limit)
-    if afficher_cles:  # Pour connaître les différentes variables et leur contenu
+    if afficher_cles:  # Pour connaï¿½tre les diffï¿½rentes variables et leur contenu
         for k, v in post.__dict__.items():
             pass
             print(k, ":", v)
@@ -48,11 +48,11 @@ for i, post in enumerate(hot_posts):
 import urllib, urllib.request, _collections
 import xmltodict
 
-# Paramètres
+# Paramï¿½tres
 query_terms = ["clustering", "Dirichlet"]
 max_results = 50
 
-# Requête
+# Requï¿½te
 url = f'http://export.arxiv.org/api/query?search_query=all:{"+".join(query_terms)}&start=0&max_results={max_results}'
 data = urllib.request.urlopen(url)
 
@@ -61,7 +61,7 @@ data = xmltodict.parse(data.read().decode('utf-8'))
 
 #showDictStruct(data)
 
-# Ajout résumés à la liste
+# Ajout rï¿½sumï¿½s ï¿½ la liste
 for i, entry in enumerate(data["feed"]["entry"]):
     if i%10==0: print("ArXiv:", i, "/", limit)
     docs.append(entry["summary"].replace("\n", ""))
@@ -74,7 +74,7 @@ docs = list(set(docs))
 print(f"# docs sans doublons : {len(docs)}")
 
 for i, doc in enumerate(docs):
-    print(f"Document {i}\t# caractères : {len(doc)}\t# mots : {len(doc.split(' '))}\t# phrases : {len(doc.split('.'))}")
+    print(f"Document {i}\t# caracteres : {len(doc)}\t# mots : {len(doc.split(' '))}\t# phrases : {len(doc.split('.'))}")
     if len(doc)<100:
         docs.remove(doc)
 
@@ -88,19 +88,19 @@ from Classes import Document
 import datetime
 collection = []
 for nature, doc in docs_bruts:
-    if nature == "ArXiv":  # Les fichiers de ArXiv ou de Reddit sont pas formatés de la même manière à ce stade.
+    if nature == "ArXiv":  # Les fichiers de ArXiv ou de Reddit sont pas formatï¿½s de la mï¿½me maniï¿½re ï¿½ ce stade.
         #showDictStruct(doc)
 
-        titre = doc["title"].replace('\n', '')  # On enlève les retours à la ligne
+        titre = doc["title"].replace('\n', '')  # On enlï¿½ve les retours ï¿½ la ligne
         try:
-            authors = ", ".join([a["name"] for a in doc["author"]])  # On fait une liste d'auteurs, séparés par une virgule
+            authors = ", ".join([a["name"] for a in doc["author"]])  # On fait une liste d'auteurs, sï¿½parï¿½s par une virgule
         except:
             authors = doc["author"]["name"]  # Si l'auteur est seul, pas besoin de liste
-        summary = doc["summary"].replace("\n", "")  # On enlève les retours à la ligne
-        date = datetime.datetime.strptime(doc["published"], "%Y-%m-%dT%H:%M:%SZ").strftime("%Y/%m/%d")  # Formatage de la date en année/mois/jour avec librairie datetime
+        summary = doc["summary"].replace("\n", "")  # On enlï¿½ve les retours ï¿½ la ligne
+        date = datetime.datetime.strptime(doc["published"], "%Y-%m-%dT%H:%M:%SZ").strftime("%Y/%m/%d")  # Formatage de la date en annï¿½e/mois/jour avec librairie datetime
 
-        doc_classe = Document(titre, authors, date, doc["id"], summary)  # Création du Document
-        collection.append(doc_classe)  # Ajout du Document à la liste.
+        doc_classe = Document(titre, authors, date, doc["id"], summary)  # Crï¿½ation du Document
+        collection.append(doc_classe)  # Ajout du Document ï¿½ la liste.
 
     elif nature == "Reddit":
         #print("".join([f"{k}: {v}\n" for k, v in doc.__dict__.items()]))
@@ -114,7 +114,7 @@ for nature, doc in docs_bruts:
 
         collection.append(doc_classe)
 
-# Création de l'index de documents
+# Crï¿½ation de l'index de documents
 id2doc = {}
 for i, doc in enumerate(collection):
     id2doc[i] = doc.titre
@@ -127,7 +127,7 @@ authors = {}
 aut2id = {}
 num_auteurs_vus = 0
 
-# Création de la liste+index des Auteurs
+# Crï¿½ation de la liste+index des Auteurs
 for doc in collection:
     if doc.auteur not in aut2id:
         num_auteurs_vus += 1
@@ -141,7 +141,7 @@ for doc in collection:
 from Corpus import Corpus
 corpus = Corpus("Mon corpus")
 
-# Construction du corpus à partir des documents
+# Construction du corpus ï¿½ partir des documents
 for doc in collection:
     corpus.add(doc)
 #corpus.show(tri="abc")
@@ -151,7 +151,7 @@ for doc in collection:
 # =============== 2.9 : SAUVEGARDE ===============
 import pickle
 
-# Ouverture d'un fichier, puis écriture avec pickle
+# Ouverture d'un fichier, puis ï¿½criture avec pickle
 with open("corpus.pkl", "wb") as f:
     pickle.dump(corpus, f)
 
@@ -162,7 +162,7 @@ del corpus
 with open("corpus.pkl", "rb") as f:
     corpus = pickle.load(f)
 
-# La variable est réapparue
+# La variable est rï¿½apparue
 print(corpus)
 
 
