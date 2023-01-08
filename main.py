@@ -3,7 +3,7 @@
 # Library
 import praw
 
-# Fonction affichage hi�rarchie dict
+# Fonction affichage hierarchie dict #
 def showDictStruct(d):
     def recursivePrint(d, i):
         for k in d:
@@ -20,11 +20,11 @@ reddit = praw.Reddit(
     client_secret='qz-U-NXJ5Nj0vamQnvpzW9TTW4ZKdQ', 
     user_agent='Td3'
     )
-# Requ�te
+# Requete
 limit = 100
 hot_posts = reddit.subreddit('all').hot(limit=limit)#.top("all", limit=limit)#
 
-# R�cup�ration du texte
+# Recuperation du texte
 docs = []
 docs_bruts = []
 afficher_cles = False
@@ -61,7 +61,7 @@ data = xmltodict.parse(data.read().decode('utf-8'))
 
 #showDictStruct(data)
 
-# Ajout r�sum�s � la liste
+# Ajout resumes  la liste
 for i, entry in enumerate(data["feed"]["entry"]):
     if i%10==0: print("ArXiv:", i, "/", limit)
     docs.append(entry["summary"].replace("\n", ""))
@@ -88,10 +88,10 @@ from Classes import Document
 import datetime
 collection = []
 for nature, doc in docs_bruts:
-    if nature == "ArXiv":  # Les fichiers de ArXiv ou de Reddit sont pas format�s de la m�me mani�re � ce stade.
+    if nature == "ArXiv":  # Les fichiers de ArXiv ou de Reddit sont pas formatés de la meme maniere a ce stade.
         #showDictStruct(doc)
 
-        titre = doc["title"].replace('\n', '')  # On enl�ve les retours � la ligne
+        titre = doc["title"].replace('\n', '')  # On enleve les retours a la ligne
         try:
             authors = ", ".join([a["name"] for a in doc["author"]])  # On fait une liste d'auteurs, s�par�s par une virgule
         except:
@@ -114,7 +114,7 @@ for nature, doc in docs_bruts:
 
         collection.append(doc_classe)
 
-# Cr�ation de l'index de documents
+# Creation de l'index de documents
 id2doc = {}
 for i, doc in enumerate(collection):
     id2doc[i] = doc.titre
@@ -127,7 +127,7 @@ authors = {}
 aut2id = {}
 num_auteurs_vus = 0
 
-# Cr�ation de la liste+index des Auteurs
+# Creation de la liste+index des Auteurs
 for doc in collection:
     if doc.auteur not in aut2id:
         num_auteurs_vus += 1
@@ -148,6 +148,7 @@ for doc in collection:
 #print(repr(corpus))
 
 
+
 # =============== 2.9 : SAUVEGARDE ===============
 import pickle
 
@@ -158,12 +159,12 @@ with open("corpus.pkl", "wb") as f:
 # Supression de la variable "corpus"
 del corpus
 
-# Ouverture du fichier, puis lecture avec pickle
+# Ouverture du fichier, puis lecture avec pickle²
 with open("corpus.pkl", "rb") as f:
     corpus = pickle.load(f)
 
 # La variable est r�apparue
-print(corpus)
+#print(corpus)
 
 
 
