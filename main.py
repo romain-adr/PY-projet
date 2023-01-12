@@ -67,7 +67,7 @@ for i, entry in enumerate(data["feed"]["entry"]):
     docs.append(entry["summary"].replace("\n", ""))
     docs_bruts.append(("ArXiv", entry))
     #showDictStruct(entry)
-
+'''
 # =============== 1.3 : Exploitation ===============
 print(f"# docs avec doublons : {len(docs)}")
 docs = list(set(docs))
@@ -79,7 +79,7 @@ for i, doc in enumerate(docs):
         docs.remove(doc)
 
 longueChaineDeCaracteres = " ".join(docs)
-
+'''
 # =============== PARTIE 2 =============
 # =============== 2.1, 2.2 : CLASSE DOCUMENT ===============
 from Classes import Document
@@ -100,7 +100,7 @@ for nature, doc in docs_bruts:
         date = datetime.datetime.strptime(doc["published"], "%Y-%m-%dT%H:%M:%SZ").strftime("%Y/%m/%d")  # Formatage de la date en ann�e/mois/jour avec librairie datetime
 
         doc_classe = Document(titre, authors, date, doc["id"], summary)  # Cr�ation du Document
-        collection.append(doc_classe)  # Ajout du Document � la liste.
+        collection.append(doc_classe)  # Ajout du Document a la liste.
 
     elif nature == "Reddit":
         #print("".join([f"{k}: {v}\n" for k, v in doc.__dict__.items()]))
@@ -140,12 +140,19 @@ for doc in collection:
 # =============== 2.7, 2.8 : CORPUS ===============
 from Corpus import Corpus
 corpus = Corpus("Mon corpus")
-
-# Construction du corpus � partir des documents
+# Construction du corpus a partir des documents
 for doc in collection:
     corpus.add(doc)
 #corpus.show(tri="abc")
 #print(repr(corpus))
+import re 
+import pandas as pd
+
+print("*"*9)
+#word = "try"
+find = corpus.concorde(word='patterns',posg='30', posd='30')
+print(find)
+print("*"*9)
 
 
 
@@ -165,6 +172,11 @@ with open("corpus.pkl", "rb") as f:
 
 # La variable est r�apparue
 #print(corpus)
+print("-"*10)
+
+#TD6RE#
+
+
 
 
 

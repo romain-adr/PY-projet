@@ -2,11 +2,11 @@
 class Document:
     # Initialisation des variables de la classe
     def __init__(self, titre="", auteur="", date="", url="", texte=""):
-        self.titre = titre
+        self.titre = titre 
         self.auteur = auteur
         self.date = date
         self.url = url
-        self.texte = texte
+        self.texte = texte 
 
 # =============== 2.2 : REPRESENTATIONS ===============
     # Fonction qui renvoie le texte à afficher lorsqu'on tape repr(classe)
