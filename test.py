@@ -27,22 +27,17 @@ for sentence in sentences:
 print(passages)
 '''
 
-
+from collections import Counter
+import pandas as pd
 
 id2doc = 'The development of parsimonious models for and reliable inference and predictionof responses in high-dimensional regression settings is often challenging dueto relatively small sample sizes and the presence of complex interactionpatterns between a large number of covariates',
 word = "and"
 passages = []
 texte = str(list(id2doc))
-word_re = re.compile(word, re.IGNORECASE)
-sentences = re.split(r'[.!?]', texte)
+sentences = re.split('[ \t,;.!?]', texte)
 for sentence in sentences:
-    if re.search(word_re, sentence):
+        sentence = sentence.lower()
         passages.append(sentence.strip())
 print(passages)
-for sentence in passages:
-    start = sentence.find(word)
-    end = sentence.find(word) + len(word)
-    context1 = sentence[start-20:start]
-    context2 = sentence[end:end+20]
-    print(context1)
-    print(context2)
+vocab_counter = pd.DataFrame.from_dict(dict(Counter(passages)), orient='index', columns=['frequency'])
+print(vocab_counter)

@@ -56,7 +56,7 @@ class Corpus:
         texte = str(list(self.id2doc.values()))
         word_re = re.compile(word, re.IGNORECASE)
         sentences = re.split(r'[.!?]', texte)
-        for sentence in sentences:
+        for sentence in sentences: 
             if re.search(word_re, sentence):
                 passages.append(sentence.strip())
         for sentence in passages:
@@ -69,7 +69,10 @@ class Corpus:
         data = {'start': start_df, 'word': word, 'end': end_df}
         df = pd.DataFrame(data)
         return df
+
         
+        
+    
         
 
 

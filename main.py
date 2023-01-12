@@ -150,10 +150,11 @@ import pandas as pd
 
 print("*"*9)
 #word = "try"
-find = corpus.concorde(word='patterns',posg='30', posd='30')
+find = corpus.concorde(word='try',posg='30', posd='30')
 print(find)
 print("*"*9)
 
+print(corpus.__doc__)
 
 
 # =============== 2.9 : SAUVEGARDE ===============
