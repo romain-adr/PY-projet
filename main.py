@@ -41,8 +41,9 @@ for i, post in enumerate(hot_posts):
     docs.append(post.selftext.replace("\n", " "))
     docs_bruts.append(("Reddit", post))
 
-#print(docs)
-
+'''print(docs)
+print(docs_bruts)
+'''
 # =============== 1.2 : ArXiv ===============
 # Libraries
 import urllib, urllib.request, _collections
@@ -80,6 +81,8 @@ for i, doc in enumerate(docs):
 
 longueChaineDeCaracteres = " ".join(docs)
 '''
+'''print(docs)
+print(docs_bruts)'''
 # =============== PARTIE 2 =============
 # =============== 2.1, 2.2 : CLASSE DOCUMENT ===============
 from Classes import Document
@@ -149,10 +152,12 @@ import re
 import pandas as pd
 from collections import Counter
 
-print(corpus.id2doc)
-print(corpus.nom)
+#print(corpus.id2doc)
 
-passages = []
+'''print(doc.auteur)
+print(corpus.naut)'''
+
+'''passages = []
 texte = str(list(set(corpus.id2doc.values())))
 #print(texte)
 sentences = re.split('[ \t,;.!?]', texte)
@@ -161,16 +166,35 @@ for sentence in sentences:
         sentence = sentence.lower()
         passages.append(sentence.strip())
 print(passages)
-vocab_counter = pd.DataFrame.from_dict(dict(Counter(passages)), orient='index', columns=['frequency'])
 print('-'*5)
-print(vocab_counter)
 '''
-print("*"*9)
+
+'''print("*"*9)
 #word = "try"
 find = corpus.concorde(word='find',posg='30', posd='30')
 print(find)
 print("*"*9)
 '''
+passages = []
+new_list = []
+texte = str(list(corpus.id2doc.values()))
+#print(texte)
+sentences = re.split('[ \t,;.!?]', texte)
+for sentence in sentences:
+        sentence = sentence.lower()
+        passages.append(sentence.strip())
+#print(passages)
+for i in passages:
+        if not re.search("^\d+$", i):
+                new_list.append(i)
+new_list.sort()
+#print(new_list)
+my_list = {}
+counter = Counter(new_list).items()
+for word, count in counter:
+    my_list[word] = {'id': id(word), 'freq': count }
+print(my_list)
+ 
 
 
 # =============== 2.9 : SAUVEGARDE ===============

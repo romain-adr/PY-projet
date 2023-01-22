@@ -35,7 +35,12 @@ print(passages)
 from collections import Counter
 import pandas as pd
 import re
-id2doc = 'The development of parsimonious models for and reliable inference 1 and predictionof responses 22 in high depends dimensional. regression 1 settings is often challenging dueto relatively small 8 sample sizes and the presence of complex complex interactionpatterns between a large number of covariates',
+import nltk
+nltk.download('punkt')
+from nltk.tokenize import word_tokenize
+id2doc = ['The development of parsimonious models for and reliable inference 1 and predictionof responses 22 in high depends dimensional. regression 1 settings is often challenging dueto relatively small 8 sample sizes and the presence of complex complex interactionpatterns between a large number of covariates']
+toks = word_tokenize(id2doc)
+print(toks[:100])
 passages = []
 new_list = []
 texte = str(list((id2doc)))
